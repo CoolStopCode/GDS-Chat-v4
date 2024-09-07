@@ -1,3 +1,4 @@
+//app.js
 let currentUser = '';
 let currentConvo = null;
 let updateInterval;
@@ -66,6 +67,8 @@ function login() {
             document.getElementById('chat-section').style.display = 'flex';
             loadConversations();
             startRealTimeUpdates();
+            applyCustomColors();
+            addOptionsButton();
         }
     });
 }
@@ -181,12 +184,109 @@ function stopRealTimeUpdates() {
     clearInterval(updateInterval);
 }
 
+function showOptionsPage() {
+    document.getElementById('chat-section').style.display = 'none';
+    document.getElementById('options-section').style.display = 'block';
+    loadOptions();
+}
+
+function showChatSection() {
+    document.getElementById('options-section').style.display = 'none';
+    document.getElementById('chat-section').style.display = 'flex';
+}
+
+function loadOptions() {
+    document.getElementById('options-username').textContent = currentUser;
+    document.getElementById('bg-dark-color').value = localStorage.getItem(`${currentUser}_bgDarkColor`) || getComputedStyle(document.documentElement).getPropertyValue('--bg-dark').trim();
+    document.getElementById('bg-medium-color').value = localStorage.getItem(`${currentUser}_bgMediumColor`) || getComputedStyle(document.documentElement).getPropertyValue('--bg-medium').trim();
+    document.getElementById('bg-light-color').value = localStorage.getItem(`${currentUser}_bgLightColor`) || getComputedStyle(document.documentElement).getPropertyValue('--bg-light').trim();
+    document.getElementById('text-primary-color').value = localStorage.getItem(`${currentUser}_textPrimaryColor`) || getComputedStyle(document.documentElement).getPropertyValue('--text-primary').trim();
+    document.getElementById('text-secondary-color').value = localStorage.getItem(`${currentUser}_textSecondaryColor`) || getComputedStyle(document.documentElement).getPropertyValue('--text-secondary').trim();
+    document.getElementById('accent-primary-color').value = localStorage.getItem(`${currentUser}_accentPrimaryColor`) || getComputedStyle(document.documentElement).getPropertyValue('--accent-primary').trim();
+    document.getElementById('accent-secondary-color').value = localStorage.getItem(`${currentUser}_accentSecondaryColor`) || getComputedStyle(document.documentElement).getPropertyValue('--accent-secondary').trim();
+    document.getElementById('accent-tertiarysecondary-color').value = localStorage.getItem(`${currentUser}_accentTertiaryColor`) || getComputedStyle(document.documentElement).getPropertyValue('--accent-tertiary').trim();
+    document.getElementById('app-version-display').textContent = APP_INFO.version;
+    document.getElementById('last-update').textContent = new Date().toLocaleDateString();
+}
+
+function saveOptions() {
+    const bgDarkColor = document.getElementById('bg-dark-color').value;
+    const bgMediumColor = document.getElementById('bg-medium-color').value;
+    const bgLightColor = document.getElementById('bg-light-color').value;
+    const textPrimaryColor = document.getElementById('text-primary-color').value;
+    const textSecondaryColor = document.getElementById('text-secondary-color').value;
+    const accentPrimaryColor = document.getElementById('accent-primary-color').value;
+    const accentSecondaryColor = document.getElementById('accent-secondary-color').value;
+    const accentTertiaryColor = document.getElementById('accent-tertiary-color').value;
+
+    localStorage.setItem(`${currentUser}_bgDarkColor`, bgDarkColor);
+    localStorage.setItem(`${currentUser}_bgMediumColor`, bgMediumColor);
+    localStorage.setItem(`${currentUser}_bgLightColor`, bgLightColor);
+    localStorage.setItem(`${currentUser}_textPrimaryColor`, textPrimaryColor);
+    localStorage.setItem(`${currentUser}_textSecondaryColor`, textSecondaryColor);
+    localStorage.setItem(`${currentUser}_accentPrimaryColor`, accentPrimaryColor);
+    localStorage.setItem(`${currentUser}_accentSecondaryColor`, accentSecondaryColor);
+    localStorage.setItem(`${currentUser}_accentTertiaryColor`, accentTertiaryColor);
+
+    applyCustomColors();
+    alert('Options saved successfully!');
+    showChatSection();
+}
+
+function applyCustomColors() {
+    const bgDarkColor = localStorage.getItem(`${currentUser}_bgDarkColor`) || getComputedStyle(document.documentElement).getPropertyValue('--bg-dark').trim();
+    const bgMediumColor = localStorage.getItem(`${currentUser}_bgMediumColor`) || getComputedStyle(document.documentElement).getPropertyValue('--bg-medium').trim();
+    const bgLightColor = localStorage.getItem(`${currentUser}_bgLightColor`) || getComputedStyle(document.documentElement).getPropertyValue('--bg-light').trim();
+    const textPrimaryColor = localStorage.getItem(`${currentUser}_textPrimaryColor`) || getComputedStyle(document.documentElement).getPropertyValue('--text-primary').trim();
+    const textSecondaryColor = localStorage.getItem(`${currentUser}_textSecondaryColor`) || getComputedStyle(document.documentElement).getPropertyValue('--text-secondary').trim();
+    const accentPrimaryColor = localStorage.getItem(`${currentUser}_accentPrimaryColor`) || getComputedStyle(document.documentElement).getPropertyValue('--accent-primary').trim();
+    const accentSecondaryColor = localStorage.getItem(`${currentUser}_accentSecondaryColor`) || getComputedStyle(document.documentElement).getPropertyValue('--accent-secondary').trim();
+    const accentTertiaryColor = localStorage.getItem(`${currentUser}_accentTertiaryColor`) || getComputedStyle(document.documentElement).getPropertyValue('--accent-tertiary').trim();
+
+    document.documentElement.style.setProperty('--bg-dark', bgDarkColor);
+    document.documentElement.style.setProperty('--bg-medium', bgMediumColor);
+    document.documentElement.style.setProperty('--bg-light', bgLightColor);
+    document.documentElement.style.setProperty('--text-primary', textPrimaryColor);
+    document.documentElement.style.setProperty('--text-secondary', textSecondaryColor);
+    document.documentElement.style.setProperty('--accent-primary', accentPrimaryColor);
+    document.documentElement.style.setProperty('--accent-secondary', accentSecondaryColor);
+    document.documentElement.style.setProperty('--accent-tertiary', accentTertiaryColor);
+}
+
+function signOut() {
+    if (confirm("Are you sure you want to sign out?")) {
+        currentUser = '';
+        currentConvo = null;
+        stopRealTimeUpdates();
+        location.reload();
+    }
+}
+
+function clearCache() {
+    localStorage.clear();
+    currentUser = '';
+    currentConvo = null;
+    stopRealTimeUpdates();
+    location.reload();
+}
+
+function addOptionsButton() {
+    const optionsButton = document.createElement('button');
+    optionsButton.textContent = 'Options';
+    optionsButton.onclick = showOptionsPage;
+    document.getElementById('sidebar').prepend(optionsButton);
+}
+
 // Event listeners
 document.getElementById('message').addEventListener('keypress', function(e) {
     if (e.key === 'Enter') {
         sendMessage();
     }
 });
+
+document.getElementById('save-options').addEventListener('click', saveOptions);
+document.getElementById('sign-out').addEventListener('click', signOut);
+document.getElementById('clear-cache').addEventListener('click', clearCache);
 
 // Display app version
 document.addEventListener('DOMContentLoaded', function() {

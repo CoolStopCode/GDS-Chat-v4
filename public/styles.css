@@ -1,125 +1,229 @@
-body {
-    font-family: Arial, sans-serif;
+/* Color variables */
+:root {
+    --bg-dark: #1a1a1a;
+    --bg-medium: #2a2a2a;
+    --bg-light: #3a3a3a;
+    --text-primary: #ffffff;
+    --text-secondary: #b0b0b0;
+    --accent-primary: #3498db;
+    --accent-secondary: #2980b9;
+    --accent-tertiary: #1abc9c;
+    --error: #e74c3c;
+    --success: #2ecc71;
+  }
+  
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
     padding: 0;
     height: 100vh;
-    background-color: var(--background-color);
-    color: var(--main-color);
-}
-
-:root {
-    --main-color: #3498db;
-    --main-dark-color: #2980b9;
-    --accent-color: #e74c3c;
-    --accent-dark-color: #c0392b;
-    --accent-held-color: #e67e22;
-    --main2-color: #2ecc71;
-    --highlight-color: #f1c40f;
-    --background-color: #ecf0f1;
-}
-
-#app {
+    background-color: var(--bg-dark);
+    color: var(--text-primary);
+  }
+  
+  #app {
     display: flex;
     height: 100%;
-}
-
-#auth-section {
-    width: 300px;
-    margin: 50px auto;
-    padding: 20px;
-    background-color: var(--main-color);
-    border-radius: 5px;
-    color: white;
-}
-
-#chat-section {
-    display: flex;
+  }
+  
+  #auth-section, #chat-section, #options-section {
     width: 100%;
     height: 100%;
-}
-
-#sidebar {
+  }
+  
+  #auth-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  #login-form, #register-form {
+    width: 300px;
+    padding: 30px;
+    background-color: var(--bg-medium);
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  #chat-section {
+    display: flex;
+  }
+  
+  #sidebar {
     width: 30%;
-    background-color: var(--main-dark-color);
+    background-color: var(--bg-medium);
     padding: 20px;
     overflow-y: auto;
-    color: white;
-}
-
-#chat-area {
+  }
+  
+  #chat-area {
     width: 70%;
     display: flex;
     flex-direction: column;
     padding: 20px;
-    background-color: var(--background-color);
-}
-
-#messages {
+    background-color: var(--bg-dark);
+  }
+  
+  #messages {
     flex-grow: 1;
     overflow-y: auto;
     margin-bottom: 20px;
-    padding: 10px;
-    background-color: white;
-    border-radius: 5px;
-}
-
-#message-input {
+    padding: 15px;
+    background-color: var(--bg-light);
+    border-radius: 8px;
+  }
+  
+  #message-input {
     display: flex;
-}
-
-input, button {
+  }
+  
+  input, button {
     margin: 5px 0;
-    padding: 10px;
+    padding: 12px;
     border: none;
     border-radius: 5px;
-}
-
-input {
+    font-size: 14px;
+  }
+  
+  input {
     flex-grow: 1;
     margin-right: 10px;
-}
-
-button {
-    background-color: var(--accent-color);
-    color: white;
+    background-color: var(--bg-light);
+    color: var(--text-primary);
+  }
+  
+  button {
+    background-color: var(--accent-primary);
+    color: var(--text-primary);
     cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-button:hover {
-    background-color: var(--accent-dark-color);
-}
-
-button:active {
-    background-color: var(--accent-held-color);
-}
-
-.convo-item {
+    transition: background-color 0.3s, transform 0.1s;
+  }
+  
+  button:hover {
+    background-color: var(--accent-secondary);
+  }
+  
+  button:active {
+    transform: scale(0.98);
+  }
+  
+  .convo-item {
     cursor: pointer;
-    padding: 10px;
-    margin: 5px 0;
-    background-color: var(--main-color);
+    padding: 12px;
+    margin: 8px 0;
+    background-color: var(--bg-light);
     border-radius: 5px;
     transition: background-color 0.3s;
-}
-
-.convo-item:hover {
-    background-color: var(--main2-color);
-}
-
-.message {
-    margin-bottom: 10px;
+  }
+  
+  .convo-item:hover {
+    background-color: var(--accent-primary);
+  }
+  
+  .message {
+    margin-bottom: 12px;
     padding: 10px;
-    background-color: var(--highlight-color);
+    background-color: var(--bg-medium);
     border-radius: 5px;
-    color: black;
-}
-
-#app-version {
+  }
+  
+  #app-version {
     position: fixed;
-    top: 10px;
+    bottom: 10px;
     right: 10px;
     font-size: 12px;
-    color: var(--main-dark-color);
-    opacity: 0.5;
-}
+    color: var(--text-secondary);
+    opacity: 0.7;
+  }
+  
+  #options-section {
+    padding: 30px;
+    background-color: var(--bg-medium);
+    overflow-y: auto;
+  }
+  
+  #options-section h2, #options-section h3 {
+    color: var(--accent-primary);
+    margin-bottom: 20px;
+  }
+  
+  #options-section input[type="text"],
+  #options-section input[type="color"] {
+    margin: 8px 0;
+    padding: 8px;
+    border: 1px solid var(--bg-light);
+    border-radius: 4px;
+    background-color: var(--bg-dark);
+    color: var(--text-primary);
+  }
+  
+  #options-section label {
+    display: block;
+    margin-top: 15px;
+    color: var(--text-secondary);
+  }
+  
+  #options-section button {
+    margin-top: 25px;
+    padding: 12px 24px;
+    background-color: var(--accent-primary);
+    color: var(--text-primary);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.1s;
+  }
+  
+  #options-section button:hover {
+    background-color: var(--accent-secondary);
+  }
+  
+  #options-section button:active {
+    transform: scale(0.98);
+  }
+  
+  /* Additional styles for better UI */
+  #new-convo-form input {
+    width: calc(100% - 24px);
+    margin-bottom: 10px;
+  }
+  
+  #current-convo-name {
+    margin-top: 0;
+    color: var(--accent-tertiary);
+  }
+  
+  #user-info, #color-customization, #app-info, #preferences {
+    background-color: var(--bg-light);
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+  }
+  
+  /* Checkbox styling */
+  input[type="checkbox"] {
+    margin-right: 10px;
+  }
+  
+  /* Scrollbar styling */
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: var(--bg-medium);
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: var(--accent-primary);
+    border-radius: 5px;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--accent-secondary);
+  }
+  
+  /* Ensure options menu is visible when needed */
+  #options-section[style*="display: block"] {
+    display: block !important;
+  }

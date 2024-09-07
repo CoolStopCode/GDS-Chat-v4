@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chat App</title>
+    <title>Chat Application</title>
     <link rel="stylesheet" href="styles.css">
-    <script src="info.js"></script>
 </head>
 <body>
     <div id="app">
@@ -17,6 +16,7 @@
                 <button onclick="login()">Login</button>
                 <p>Don't have an account? <a href="#" onclick="showRegisterForm()">Register</a></p>
             </div>
+
             <div id="register-form" style="display: none;">
                 <h2>Register</h2>
                 <input type="text" id="register-username" placeholder="Username">
@@ -25,9 +25,10 @@
                 <p>Already have an account? <a href="#" onclick="showLoginForm()">Login</a></p>
             </div>
         </div>
+
         <div id="chat-section" style="display: none;">
             <div id="sidebar">
-                <button id="new-convo-btn" onclick="showNewConvoForm()">New Conversation</button>
+                <button onclick="showNewConvoForm()">New Conversation</button>
                 <div id="new-convo-form" style="display: none;">
                     <input type="text" id="new-convo-name" placeholder="Conversation Name">
                     <input type="text" id="new-convo-participants" placeholder="Participants (comma-separated)">
@@ -35,16 +36,61 @@
                 </div>
                 <div id="convo-list"></div>
             </div>
+
             <div id="chat-area">
                 <h2 id="current-convo-name"></h2>
                 <div id="messages"></div>
                 <div id="message-input">
-                    <input type="text" id="message" placeholder="Type your message">
+                    <input type="text" id="message" placeholder="Type your message...">
                     <button onclick="sendMessage()">Send</button>
                 </div>
             </div>
         </div>
+
+        <div id="options-section" style="display: none;">
+            <h2>Options</h2>
+            <div id="user-info">
+                <h3>User Information</h3>
+                <p>Username: <span id="options-username"></span></p>
+            </div>
+            <div id="color-customization">
+                <h3>Color Customization</h3>
+                <label for="bg-dark-color">Dark Background:</label>
+                <input type="color" id="bg-dark-color">
+                <label for="bg-medium-color">Medium Background:</label>
+                <input type="color" id="bg-medium-color">
+                <label for="bg-light-color">Light Background:</label>
+                <input type="color" id="bg-light-color">
+                <label for="text-primary-color">Primary Text:</label>
+                <input type="color" id="text-primary-color">
+                <label for="text-secondary-color">Secondary Text:</label>
+                <input type="color" id="text-secondary-color">
+                <label for="accent-primary-color">Primary Accent:</label>
+                <input type="color" id="accent-primary-color">
+                <label for="accent-secondary-color">Secondary Accent:</label>
+                <input type="color" id="accent-secondary-color">
+                <label for="accent-tertiary-color">Tertiary Accent:</label>
+                <input type="color" id="accent-tertiary-color">
+            </div>
+            <div id="app-info">
+                <h3>Application Information</h3>
+                <p>Version: <span id="app-version-display"></span></p>
+                <p>Last Update: <span id="last-update"></span></p>
+            </div>
+            <div id="preferences">
+                <h3>Preferences</h3>
+                <label>
+                    <input type="checkbox" id="sound-enabled">
+                    Enable Sound Effects
+                </label>
+            </div>
+            <button id="save-options">Save Changes</button>
+            <button id="sign-out">Sign Out</button>
+            <button id="clear-cache">Sign Out and Clear Cache</button>
+        </div>
     </div>
+
+    <script src="info.js"></script>
     <script src="app.js"></script>
 </body>
 </html>

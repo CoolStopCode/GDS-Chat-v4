@@ -1,5 +1,5 @@
 const APP_INFO = {
-    version: '0.2.0',
+    version: '0.3.0',
     limits: {
         username: { min: 3, max: 20 },
         password: { min: 6, max: 30 },

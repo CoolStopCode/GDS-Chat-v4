@@ -36,6 +36,40 @@ function createConversation(name, participants, callback) {
     });
 }
 
+function removeUserFromConversation(convoId, username, callback) {
+    console.log(`Database: Removing user ${username} from conversation ${convoId}`);
+    
+    // First, check if the user is in the conversation
+    db.get("SELECT * FROM conversation_participants WHERE conversation_id = ? AND username = ?", 
+        [convoId, username], 
+        (err, row) => {
+            if (err) {
+                console.error('Error checking participant:', err.message);
+                return callback(err);
+            }
+            if (!row) {
+                console.log(`User ${username} not found in conversation ${convoId}`);
+                return callback(new Error('User not found in the conversation'));
+            }
+            
+            // If user is found, proceed with removal
+            db.run("DELETE FROM conversation_participants WHERE conversation_id = ? AND username = ?", 
+                [convoId, username], 
+                function(err) {
+                    if (err) {
+                        console.error('Error deleting participant:', err.message);
+                        return callback(err);
+                    }
+                    console.log(`Removed user ${username} from conversation ${convoId}. Rows affected: ${this.changes}`);
+                    callback(null);
+                }
+            );
+        }
+    );
+}
+
+
+
 function getConversations(username, callback) {
     db.all(`
         SELECT c.id, c.name, GROUP_CONCAT(cp.username, ', ') as participants
@@ -68,5 +102,6 @@ module.exports = {
     createConversation,
     getConversations,
     sendMessage,
-    getMessages
+    getMessages,
+    removeUserFromConversation
 };

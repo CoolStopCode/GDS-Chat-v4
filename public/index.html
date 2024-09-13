@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chat Application</title>
     <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 </head>
 <body>
     <div id="app">
@@ -28,7 +29,8 @@
 
         <div id="chat-section" style="display: none;">
             <div id="sidebar">
-                <button onclick="showNewConvoForm()">New Conversation</button>
+                <button onclick="showOptionsPage()">Options</button>
+                <button onclick="showNewConvoForm()" class="new-convo-btn"><i class="fas fa-plus"></i> New Conversation</button>
                 <div id="new-convo-form" style="display: none;">
                     <input type="text" id="new-convo-name" placeholder="Conversation Name">
                     <input type="text" id="new-convo-participants" placeholder="Participants (comma-separated)">
@@ -42,7 +44,7 @@
                 <div id="messages"></div>
                 <div id="message-input">
                     <input type="text" id="message" placeholder="Type your message...">
-                    <button onclick="sendMessage()">Send</button>
+                    <button onclick="sendMessage()"><i class="fas fa-paper-plane"></i></button>
                 </div>
             </div>
         </div>
@@ -55,22 +57,41 @@
             </div>
             <div id="color-customization">
                 <h3>Color Customization</h3>
-                <label for="bg-dark-color">Dark Background:</label>
-                <input type="color" id="bg-dark-color">
-                <label for="bg-medium-color">Medium Background:</label>
-                <input type="color" id="bg-medium-color">
-                <label for="bg-light-color">Light Background:</label>
-                <input type="color" id="bg-light-color">
-                <label for="text-primary-color">Primary Text:</label>
-                <input type="color" id="text-primary-color">
-                <label for="text-secondary-color">Secondary Text:</label>
-                <input type="color" id="text-secondary-color">
-                <label for="accent-primary-color">Primary Accent:</label>
-                <input type="color" id="accent-primary-color">
-                <label for="accent-secondary-color">Secondary Accent:</label>
-                <input type="color" id="accent-secondary-color">
-                <label for="accent-tertiary-color">Tertiary Accent:</label>
-                <input type="color" id="accent-tertiary-color">
+                <div class="color-option">
+                    <label for="bg-dark-color">Dark Background:</label>
+                    <div class="color-preview" id="bg-dark-preview"></div>
+                    <input type="color" id="bg-dark-color">
+                </div>
+                <div class="color-option">
+                    <label for="bg-medium-color">Medium Background:</label>
+                    <div class="color-preview" id="bg-medium-preview"></div>
+                    <input type="color" id="bg-medium-color">
+                </div>
+                <div class="color-option">
+                    <label for="bg-light-color">Light Background:</label>
+                    <div class="color-preview" id="bg-light-preview"></div>
+                    <input type="color" id="bg-light-color">
+                </div>
+                <div class="color-option">
+                    <label for="text-primary-color">Primary Text:</label>
+                    <div class="color-preview" id="text-primary-preview"></div>
+                    <input type="color" id="text-primary-color">
+                </div>
+                <div class="color-option">
+                    <label for="text-secondary-color">Secondary Text:</label>
+                    <div class="color-preview" id="text-secondary-preview"></div>
+                    <input type="color" id="text-secondary-color">
+                </div>
+                <div class="color-option">
+                    <label for="accent-primary-color">Primary Accent:</label>
+                    <div class="color-preview" id="accent-primary-preview"></div>
+                    <input type="color" id="accent-primary-color">
+                </div>
+                <div class="color-option">
+                    <label for="accent-secondary-color">Secondary Accent:</label>
+                    <div class="color-preview" id="accent-secondary-preview"></div>
+                    <input type="color" id="accent-secondary-color">
+                </div>
             </div>
             <div id="app-info">
                 <h3>Application Information</h3>
